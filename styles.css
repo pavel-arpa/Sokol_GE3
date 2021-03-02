@@ -1,0 +1,139 @@
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	background-attachment: fixed;
+	background-color: #fff;
+	background-size: cover;
+}
+
+
+.wrapper {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	z-index: 10;
+}
+.wrapper__slide {
+	width: 100%;
+ 	max-width: 740px;
+ 	background-color: rgba(0, 0, 0, 0.7);
+ 	padding: 30px;
+ 	margin: 15px 15px;
+ 	border-radius: 20px;
+ 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+
+.title {
+	display: flex;
+	justify-content: center;
+	font-family: "Jura", sans-serif;
+	font-size: 30px;
+	color: rgb(243, 138, 0);
+	line-height: 30px;
+	margin-bottom: 30px;
+}
+
+
+.content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.content__text {
+	position: relative;
+	font-family: "Exo 2", sans-serif;
+	text-align: center;
+	margin-bottom: 40px;
+	color: #eee;
+}
+.content__image {
+	max-height: 360px;
+	width: 100%;
+	max-width: 740px;
+	margin: 0 auto;
+	margin-bottom: 40px;
+	border-radius: 20px;
+	object-fit: cover;
+}
+
+
+.action {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+}
+.action__title {
+	font-family: "Jura", sans-serif;
+	font-size: 30px;
+	line-height: 30px;
+	color: #fff;
+	margin-bottom: 20px;
+}
+.action__button-wrapper {
+	display: flex;
+	align-items: center;
+	margin-top: 10px;
+}
+.action__button {
+	font-family: "Jura", sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	user-select: none;
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #888;
+	background-color: #000;
+	min-height: 50px;
+	border-radius: 10px;
+	padding: 0 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 0.3s;
+}
+.action__arrow {
+	font-family: Consolas;
+	font-size: 0px;
+	line-height: 18px;
+	height: 0px;
+	width: 0px;
+	border-radius: 30px;
+	margin-left: 40px;
+	background-color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	transition: 0.3s;
+	transition-timing-function: ease;
+}
+.action__button:hover + .action__arrow {
+	opacity: 1;
+	height: 40px;
+	width: 40px;
+	font-size: 18px;
+	margin-left: 20px;
+}
+.action__button:hover {
+	background-color: rgb(243, 138, 0);
+	box-shadow: 0 0 10px rgb(243, 138, 0);
+	color: #000;
+}
+
+.video {
+	border-radius: 20px;
+	margin-bottom: 20px;
+	width: 100%;
+	height: auto;
+}
+.audio {
+	border-radius: 20px;
+	margin-bottom: 20px;
+	width: 100%;
+}
