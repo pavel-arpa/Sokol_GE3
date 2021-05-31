@@ -211,10 +211,14 @@ class Manipulator {
     `)
     let arr = this.$workspace.querySelectorAll('.action__button')
     arr[arr.length - 1].addEventListener('click', (e) => {
-      this.go(ref)
+      setTimeout(() => {
+        this.go(ref)
+      }, 100)
     })
     arr[arr.length - 1].addEventListener('touchend', (e) => {
-      this.go(ref)
+      setTimeout(() => {
+        this.go(ref)
+      }, 100)
     })
   }
   removeButtons() {
