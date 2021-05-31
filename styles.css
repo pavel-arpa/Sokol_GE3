@@ -129,11 +129,19 @@ body {
 	color: #000;
 }
 
+.video-wrapper {
+	margin-bottom: 20px;
+	text-align: center;
+}
 .video {
 	border-radius: 20px;
 	margin-bottom: 20px;
 	width: 100%;
 	height: auto;
+}
+.wrapper-audio {
+	margin-bottom: 20px;
+	text-align: center;
 }
 .audio {
 	border-radius: 20px;
