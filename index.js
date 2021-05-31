@@ -38,6 +38,7 @@ class Manipulator {
   $content
   btnl
   pageContents = []
+  counter = true
 
   constructor() {
     document.body.insertAdjacentHTML('afterend', `
@@ -83,6 +84,7 @@ class Manipulator {
 
 
   go(ref) {
+    this.counter = true
     this.pageContents.forEach(el => {
       if(el.name == ref) {
         el.title ? this.changeTitle(el.title) : null
@@ -101,6 +103,7 @@ class Manipulator {
         el.video
           ? el.video.forEach(item => {
             this.addVideo({src: item.src, author: item.author})
+            console.log(0);
           })
           : this.removeVideo()
         this.removeButtons()
@@ -160,14 +163,16 @@ class Manipulator {
 
 
   addAudio({src, author}) {
-    this.$content.insertAdjacentHTML('afterend', `
-      <div class="wrapper-audio">
-        <audio class="audio" controls autoplay>
-          <source src="${src}">
-        </audio>
-        <i>${author}</i>
-      </div>
-    `)
+    if(this.counter) {
+      this.$content.insertAdjacentHTML('afterend', `
+        <div class="wrapper-audio">
+          <audio class="audio" controls autoplay>
+            <source src="${src}">
+          </audio>
+          <i>${author}</i>
+        </div>
+      `)
+    }
   }
   removeAudio() {
     Array.from(this.$workspace.querySelectorAll('.wrapper-audio')).map(item => {
@@ -177,14 +182,16 @@ class Manipulator {
 
 
   addVideo({src, author}) {
-    this.$content.insertAdjacentHTML('afterend', `
-      <div class="video-wrapper">
-        <video controls="controls" class="video">
-          <source src="${src}">
-        </video>
-        <i>${author}</i>
-      </div>
-    `)
+    if(this.counter) {
+      this.$content.insertAdjacentHTML('afterend', `
+        <div class="video-wrapper">
+          <video controls="controls" class="video">
+            <source src="${src}">
+          </video>
+          <i>${author}</i>
+        </div>
+      `)
+    }
   }
   removeVideo() {
     Array.from(this.$workspace.querySelectorAll('.video-wrapper')).map(item => {
@@ -211,14 +218,15 @@ class Manipulator {
     `)
     let arr = this.$workspace.querySelectorAll('.action__button')
     arr[arr.length - 1].addEventListener('click', (e) => {
-      setTimeout(() => {
-        this.go(ref)
-      }, 100)
+      this.go(ref)
     })
     arr[arr.length - 1].addEventListener('touchend', (e) => {
-      setTimeout(() => {
-        this.go(ref)
-      }, 100)
+      if(this.counter) {
+        this.counter = false
+        setTimeout(() => {
+          this.go(ref)
+        }, 500)
+      }
     })
   }
   removeButtons() {
