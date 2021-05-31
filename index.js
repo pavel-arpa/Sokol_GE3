@@ -103,7 +103,6 @@ class Manipulator {
         el.video
           ? el.video.forEach(item => {
             this.addVideo({src: item.src, author: item.author})
-            console.log(0);
           })
           : this.removeVideo()
         this.removeButtons()
@@ -149,13 +148,43 @@ class Manipulator {
   }
 
 
+  _asyncImage(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(new Error(`Could not load image: ${url}`));
+      img.src = url;
+    });
+  }
+  _isImageLoaded(img) {
+    if (!img.complete) {
+      return false;
+    }
+    if (img.naturalWidth + img.naturalHeight === 0) {
+      return false;
+    }
+    return true;
+  }
+  _setBackgroundImage(src) {
+    let img = this.$content.querySelector('.content__loading')
+    img.className = 'content__image'
+    img.src = src
+    this.$content.querySelector('.wrapper-img').style.height = 'auto'
+  }
   addImg({src, url}) {
     this.$content.insertAdjacentHTML('beforeend', `
-      <img src="${src}" alt="${url}" class="content__image">
+      <div class="wrapper-img" style="height: ${window.innerWidth * 0.5625}px;">
+        <img src="./img/loading-86.gif" alt="${url}" class="content__loading">
+      </div>
     `)
+    this._asyncImage(src)
+      .then(img => {
+        this._isImageLoaded(img) ? this._setBackgroundImage(src) : null
+      })
+
   }
   removeImgs() {
-    Array.from(this.$content.querySelectorAll('.content__image')).map(item => {
+    Array.from(this.$content.querySelectorAll('.wrapper-img')).map(item => {
       item.remove()
     })
   }
@@ -163,16 +192,14 @@ class Manipulator {
 
 
   addAudio({src, author}) {
-    if(this.counter) {
-      this.$content.insertAdjacentHTML('afterend', `
-        <div class="wrapper-audio">
-          <audio class="audio" controls autoplay>
-            <source src="${src}">
-          </audio>
-          <i>${author}</i>
-        </div>
-      `)
-    }
+    this.$content.insertAdjacentHTML('afterend', `
+      <div class="wrapper-audio">
+        <audio class="audio" controls autoplay>
+          <source src="${src}">
+        </audio>
+        <i>${author}</i>
+      </div>
+    `)
   }
   removeAudio() {
     Array.from(this.$workspace.querySelectorAll('.wrapper-audio')).map(item => {
@@ -182,16 +209,14 @@ class Manipulator {
 
 
   addVideo({src, author}) {
-    if(this.counter) {
-      this.$content.insertAdjacentHTML('afterend', `
-        <div class="video-wrapper">
-          <video controls="controls" class="video">
-            <source src="${src}">
-          </video>
-          <i>${author}</i>
-        </div>
-      `)
-    }
+    this.$content.insertAdjacentHTML('afterend', `
+      <div class="video-wrapper">
+        <video controls="controls" class="video">
+          <source src="${src}">
+        </video>
+        <i>${author}</i>
+      </div>
+    `)
   }
   removeVideo() {
     Array.from(this.$workspace.querySelectorAll('.video-wrapper')).map(item => {
