@@ -217,17 +217,21 @@ class Manipulator {
       </div>
     `)
     let arr = this.$workspace.querySelectorAll('.action__button')
-    arr[arr.length - 1].addEventListener('click', (e) => {
-      this.go(ref)
-    })
-    arr[arr.length - 1].addEventListener('touchend', (e) => {
-      if(this.counter) {
-        this.counter = false
-        setTimeout(() => {
-          this.go(ref)
-        }, 500)
-      }
-    })
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      // код для мобильных устройств
+      arr[arr.length - 1].addEventListener('touchend', (e) => {
+        if(this.counter) {
+          this.counter = false
+          setTimeout(() => {
+            this.go(ref)
+          }, 500)
+        }
+      })
+    } else {
+      arr[arr.length - 1].addEventListener('click', (e) => {
+        this.go(ref)
+      })
+  }
   }
   removeButtons() {
     Array.from(this.$workspace.querySelectorAll('.action__button-wrapper')).map(node => {
