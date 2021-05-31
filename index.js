@@ -36,6 +36,7 @@ class Manipulator {
   $action
   $title
   $content
+  $wrapImg
   btnl
   pageContents = []
   counter = true
@@ -169,14 +170,17 @@ class Manipulator {
     let img = this.$content.querySelector('.content__loading')
     img.className = 'content__image'
     img.src = src
-    this.$content.querySelector('.wrapper-img').style.height = 'auto'
+    this.$wrapImg.style.height = 'auto'
   }
   addImg({src, url}) {
     this.$content.insertAdjacentHTML('beforeend', `
-      <div class="wrapper-img" style="height: ${window.innerWidth * 0.5625}px;">
+      <div class="wrapper-img">
         <img src="./img/loading-86.gif" alt="${url}" class="content__loading">
       </div>
     `)
+    this.$wrapImg = this.$content.querySelector('.wrapper-img')
+    this.$wrapImg.style.height = this.$wrapImg.offsetWidth * 0.5625 + 'px'
+
     this._asyncImage(src)
       .then(img => {
         this._isImageLoaded(img) ? this._setBackgroundImage(src) : null
