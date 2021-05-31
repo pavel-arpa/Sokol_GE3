@@ -248,7 +248,7 @@ class Manipulator {
     let arr = this.$workspace.querySelectorAll('.action__button')
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       // код для мобильных устройств
-      arr[arr.length - 1].addEventListener('touchend', (e) => {
+      arr[arr.length - 1].addEventListener('click', (e) => {
         if(this.counter) {
           this.counter = false
           setTimeout(() => {
